@@ -43,9 +43,11 @@ Del data frame `mapa_ec` extraemos las provincias y creamos otro data frame de p
 
 ```r
 provincias <- 
-  data.frame(name= mapa_ec$features.properties$name,
-             lon = mapa_ec$features.properties$longitude,
-             lat = mapa_ec$features.properties$latitude) %>% 
+  data.frame(
+    name= mapa_ec$features.properties$name,
+    lon = mapa_ec$features.properties$longitude,
+    lat = mapa_ec$features.properties$latitude
+  ) %>% 
   filter(name != is.na(name)) %>% 
   mutate(across(everything(), as.character)) %>% 
   mutate(across(c(lon, lat), as.numeric))
@@ -67,23 +69,26 @@ pop_prov <-
 ```r
 # Mapa con colores degradados predeterminados
 highchart() %>% 
-  hc_add_series_map(map = mapa.ec,
-                    df = pop_prov, 
-                    name= 'Población',
-                    value = "Poblacion2020",
-                    joinBy = c("name", "Provincia"),
-                    dataLabels = list(enabled = TRUE, 
-                                      format = '{point.name}'),
-                    states = list(hover = list(color='#04635b')),
-                    borderColor = "#FFFFFF"
+  hc_add_series_map(
+    map = mapa.ec,
+    df = pop_prov, 
+    name= 'Población',
+    value = "Poblacion2020",
+    joinBy = c("name", "Provincia"),
+    dataLabels = list(enabled = TRUE, 
+                      format = '{point.name}'),
+    states = list(hover = list(color='#04635b')),
+    borderColor = "#FFFFFF"
   ) %>% 
   hc_mapNavigation(enabled = TRUE) %>% 
   hc_add_theme(hc_theme_smpl()) %>% 
   hc_title(text = "Población del Ecuador por provincias") %>%
   hc_subtitle(text = "Source: https://github.com/zpio") %>% 
-  hc_legend(layout= 'vertical',
-            align= 'right',
-            verticalAlign= 'bottom')
+  hc_legend(
+    layout= 'vertical',
+    align= 'right',
+    verticalAlign= 'bottom'
+  )
 ```
 
 ![](imagenes/mapa0.png)
@@ -93,24 +98,27 @@ highchart() %>%
 ```r
 # Mapa con 2 colores degradados personalizados
 highchart() %>% 
-  hc_add_series_map(map = mapa.ec,
-                    df = pop_prov, 
-                    name= 'Población',
-                    value = "Poblacion2020",
-                    joinBy = c("name", "Provincia"),
-                    dataLabels = list(enabled = TRUE, 
-                                      format = '{point.name}'),
-                    states = list(hover = list(color='#04635b')),
-                    borderColor = "#FFFFFF"
+  hc_add_series_map(
+    map = mapa.ec,
+    df = pop_prov, 
+    name= 'Población',
+    value = "Poblacion2020",
+    joinBy = c("name", "Provincia"),
+    dataLabels = list(enabled = TRUE, 
+                      format = '{point.name}'),
+    states = list(hover = list(color='#04635b')),
+    borderColor = "#FFFFFF"
   ) %>% 
   hc_mapNavigation(enabled = TRUE) %>% 
   hc_add_theme(hc_theme_smpl()) %>% 
   hc_colorAxis(minColor = "#5ad1c7", maxColor = "#434348") %>% 
   hc_title(text = "Población del Ecuador por provincias") %>%
   hc_subtitle(text = "Source: https://github.com/zpio") %>% 
-  hc_legend(layout= 'vertical',
-            align= 'right',
-            verticalAlign= 'bottom')
+  hc_legend(
+    layout= 'vertical',
+    align= 'right',
+    verticalAlign= 'bottom'
+  )
 ```
 
 ![](imagenes/mapa1.png)
@@ -121,24 +129,27 @@ highchart() %>%
 ```r
 # Mapa con mas de dos colores degradados personalizados
 highchart() %>% 
-  hc_add_series_map(map = mapa.ec,
-                    df = pop_prov, 
-                    name= 'Población',
-                    value = "Poblacion2020",
-                    joinBy = c("name", "Provincia"),
-                    dataLabels = list(enabled = TRUE, 
-                                      format = '{point.name}'),
-                    states = list(hover = list(color='#04635b')),
-                    borderColor = "#FFFFFF"
+  hc_add_series_map(
+    map = mapa.ec,
+    df = pop_prov, 
+    name= 'Población',
+    value = "Poblacion2020",
+    joinBy = c("name", "Provincia"),
+    dataLabels = list(enabled = TRUE, 
+                      format = '{point.name}'),
+    states = list(hover = list(color='#04635b')),
+    borderColor = "#FFFFFF"
   ) %>% 
   hc_mapNavigation(enabled = TRUE) %>% 
   hc_add_theme(hc_theme_smpl()) %>% 
   hc_colorAxis(stops = color_stops(3, c("white","red", "black"))) %>%
   hc_title(text = "Población del Ecuador por provincias") %>%
   hc_subtitle(text = "Source: https://github.com/zpio") %>% 
-  hc_legend(layout= 'vertical',
-            align= 'right',
-            verticalAlign= 'bottom')
+  hc_legend(
+    layout= 'vertical',
+    align= 'right',
+    verticalAlign= 'bottom'
+  )
 ```
 
 ![](imagenes/mapa4.png)
@@ -154,17 +165,19 @@ tres_prov <- pop_prov %>%
 ```r
 highchart() %>% 
   #hc_chart(backgroundColor = "#161C20") %>% #color fondo imagen
-  hc_add_series_map(map = mapa.ec,
-                    df = tres_prov, 
-                    name= 'Población',
-                    value = "value",
-                    joinBy = c("name", "Provincia"),
-                    dataLabels = list(enabled = TRUE, 
-                                      format = '{point.Provincia}'),
-                    states = list(hover = list(color='#e3e3e3')),
-                    tooltip = list(pointFormat = "Pop: {point.Poblacion2020:,.0f}"),
-                    borderColor = "#FFFFFF",
-                    nullColor = "#e8e8e8"  #para cambiar el tono gris del mapa) %>% 
+  hc_add_series_map(
+    map = mapa.ec,
+    df = tres_prov, 
+    name= 'Población',
+    value = "value",
+    joinBy = c("name", "Provincia"),
+    dataLabels = list(enabled = TRUE, 
+                      format = '{point.Provincia}'),
+    states = list(hover = list(color='#e3e3e3')),
+    tooltip = list(pointFormat = "Pop: {point.Poblacion2020:,.0f}"),
+    borderColor = "#FFFFFF",
+    #para cambiar el tono gris del mapa
+    nullColor = "#e8e8e8" ) %>% 
   hc_mapNavigation(enabled = TRUE) %>% 
   hc_add_theme(hc_theme_smpl()) %>% 
   hc_colorAxis(
@@ -176,9 +189,10 @@ highchart() %>%
   ) %>%
   hc_title(text = "Población del Ecuador por provincias") %>%
   hc_subtitle(text = "Source: https://github.com/zpio") %>% 
-  hc_legend(layout= 'vertical',
-            align= 'right',
-            verticalAlign= 'bottom')
+  hc_legend(
+    layout= 'vertical',
+    align= 'right',
+    verticalAlign= 'bottom')
 ```
 
 ![](imagenes/mapa5.png)
@@ -205,17 +219,19 @@ prov_categ <- n_prov %>%
 ```r
 highchart() %>% 
   #hc_chart(backgroundColor = "#161C20") %>% #color fondo imagen
-  hc_add_series_map(map = mapa.ec,
-                    df = n_prov, 
-                    name= 'Población',
-                    value = "value",
-                    joinBy = c("name", "Provincia"),
-                    dataLabels = list(enabled = TRUE, 
-                                      format = '{point.Provincia}'),
-                    states = list(hover = list(color='#e3e3e3')),
-                    tooltip = list(pointFormat = "{point.name}: {point.Poblacion2020:,.0f}"),
-                    borderColor = "#FFFFFF",
-                    nullColor = "#e8e8e8"  #para cambiar el tono gris del mapa
+  hc_add_series_map(
+    map = mapa.ec,
+    df = n_prov, 
+    name= 'Población',
+    value = "value",
+    joinBy = c("name", "Provincia"),
+    dataLabels = list(enabled = TRUE, 
+                      format = '{point.Provincia}'),
+    states = list(hover = list(color='#e3e3e3')),
+    tooltip = list(pointFormat = "{point.name}: {point.Poblacion2020:,.0f}"),
+    borderColor = "#FFFFFF",
+    #para cambiar el tono gris del mapa
+    nullColor = "#e8e8e8"  
   ) %>% 
   hc_mapNavigation(enabled = TRUE) %>% 
   hc_add_theme(hc_theme_smpl()) %>% 
@@ -244,8 +260,9 @@ prov_lat_lon <- provincias %>%
 
 ```r
 highchart(type = "map") %>%
-  hc_add_series(mapData = mapa.ec, 
-                showInLegend = FALSE) %>% 
+  hc_add_series(
+    mapData = mapa.ec, 
+    showInLegend = FALSE) %>% 
   hc_add_series(
     data = prov_lat_lon, 
     type = "mappoint",
@@ -259,9 +276,10 @@ highchart(type = "map") %>%
   hc_add_theme(hc_theme_smpl()) %>% 
   hc_title(text = "Población del Ecuador por provincias") %>%
   hc_subtitle(text = "Source: https://github.com/zpio") %>% 
-  hc_legend(layout= 'vertical',
-            align= 'right',
-            verticalAlign= 'bottom')
+  hc_legend(
+    layout= 'vertical',
+    align= 'right',
+    verticalAlign= 'bottom')
   ```
   
 ![](imagenes/mapa7.png)
@@ -273,8 +291,9 @@ Hacemos un join con las coordenadas de las provincias y la población
 
 ```r
 highchart(type = "map") %>%
-  hc_add_series(mapData = mapa.ec, 
-                showInLegend = FALSE) %>% 
+  hc_add_series(
+    mapData = mapa.ec, 
+    showInLegend = FALSE) %>% 
   hc_add_series(
     data = prov_lat_lon, 
     type = "mapbubble",
@@ -287,9 +306,10 @@ highchart(type = "map") %>%
   hc_add_theme(hc_theme_smpl()) %>% 
   hc_title(text = "Población del Ecuador por provincias") %>%
   hc_subtitle(text = "Source: https://github.com/zpio") %>% 
-  hc_legend(layout= 'vertical',
-            align= 'right',
-            verticalAlign= 'bottom')
+  hc_legend(
+    layout= 'vertical',
+    align= 'right',
+    verticalAlign= 'bottom')
 
 ```
 
@@ -299,7 +319,10 @@ highchart(type = "map") %>%
 
 ```r
 highchart(type = "map") %>%
-  hc_add_series(mapData = mapa.ec, showInLegend = FALSE) %>% 
+  hc_add_series(
+    mapData = mapa.ec, 
+    showInLegend = FALSE
+  ) %>% 
   hc_add_series(
     data = prov_lat_lon, 
     type = "mapbubble",
@@ -312,9 +335,10 @@ highchart(type = "map") %>%
   hc_colorAxis(minColor = "#5ad1c7", maxColor = "#434348") %>% 
   hc_title(text = "Población del Ecuador por provincias") %>%
   hc_subtitle(text = "Source: https://github.com/zpio") %>% 
-  hc_legend(layout= 'vertical',
-            align= 'right',
-            verticalAlign= 'bottom')
+  hc_legend(
+    layout= 'vertical',
+    align= 'right',
+    verticalAlign= 'bottom')
 
 ```
 ![](imagenes/mapa3.png)
